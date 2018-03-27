@@ -340,7 +340,7 @@ window.tinymce.PluginManager.add('customhr', function (editor) {
 });
 
 // Load plugins
-let plugins = "image table textcolor paste link autolink fullscreen imagetools code customhr autosave lists codeeditor";
+let plugins = "image table textcolor paste link autolink fullscreen imagetools code customhr autosave lists codeeditor media";
 codePlugin();
 if (document.querySelector('[drawio-enabled]').getAttribute('drawio-enabled') === 'true') {
     drawIoPlugin();
@@ -366,7 +366,7 @@ module.exports = {
     valid_children: "-div[p|h1|h2|h3|h4|h5|h6|blockquote],+div[pre],+div[img]",
     plugins: plugins,
     imagetools_toolbar: 'imageoptions',
-    toolbar: "undo redo | styleselect | bold italic underline strikethrough superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table image-insert link hr drawio | removeformat code fullscreen",
+    toolbar: "undo redo | styleselect | bold italic underline strikethrough superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table image-insert link hr drawio media | removeformat code fullscreen",
     content_style: "body {padding-left: 15px !important; padding-right: 15px !important; margin:0!important; margin-left:auto!important;margin-right:auto!important;}",
     style_formats: [
         {title: "Header Large", format: "h2"},
@@ -385,6 +385,8 @@ module.exports = {
         ]},
     ],
     style_formats_merge: false,
+    media_alt_source: false,
+    media_poster: false,
     formats: {
         codeeditor: {selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div'},
         alignleft: {selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'align-left'},
