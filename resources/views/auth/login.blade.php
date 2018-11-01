@@ -13,7 +13,7 @@
             <h3>@icon('login') {{ title_case(trans('auth.log_in')) }}</h3>
 
             <div class="body">
-                <form action="{{ baseUrl("/login") }}" method="POST" id="login-form">
+                {{-- <form action="{{ baseUrl("/login") }}" method="POST" id="login-form">
                     {!! csrf_field() !!}
 
                     @include('auth/forms/login/' . $authMethod)
@@ -27,7 +27,7 @@
                     <div class="from-group">
                         <button class="button block pos" tabindex="3">@icon('login') {{ title_case(trans('auth.log_in')) }}</button>
                     </div>
-                </form>
+                </form> --}}
                 @if(count($socialDrivers) > 0)
                     @foreach($socialDrivers as $driver => $name)
                         <a id="social-login-{{$driver}}" class="button block muted-light svg text-left" href="{{ baseUrl("/register/service/" . $driver) }}">

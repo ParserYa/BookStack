@@ -119,7 +119,6 @@ class LoginController extends Controller
     public function getLogin(Request $request)
     {
         $socialDrivers = $this->socialAuthService->getActiveDrivers();
-        print_r( $socialDrivers);
         $authMethod = config('auth.method');
 
         if ($request->has('email')) {
