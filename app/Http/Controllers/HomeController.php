@@ -26,16 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = $this->entityRepo->getAll('book');
-        $pages = $this->entityRepo->getAll('page');
-        $chapters = $this->entityRepo->getAll('chapter');
-        $links = $this->entityRepo->getAll('link');
-
         $activity = Activity::latest(10);
         $draftPages = $this->signedIn ? $this->entityRepo->getUserDraftPages(6) : [];
         $recentFactor = count($draftPages) > 0 ? 0.5 : 1;
-        //$recents = $this->signedIn ? Views::getUserRecentlyViewed(12*$recentFactor, 0) : $this->entityRepo->getRecentlyCreated('book', 12*$recentFactor);
-        //$recentlyUpdatedPages = $this->entityRepo->getRecentlyUpdated('page', 12);
+        $recents = $this->signedIn ? Views::getUserRecentlyViewed(12*$recentFactor, 0) : $this->entityRepo->getRecentlyCreated('book', 12*$recentFactor);
+        $recentlyUpdatedPages = $this->entityRepo->getRecentlyUpdated('page', 12);
         $homepageOptions = ['default', 'books', 'bookshelves', 'page'];
         $homepageOption = setting('app-homepage-type', 'default');
         if (!in_array($homepageOption, $homepageOptions)) {
@@ -43,13 +38,9 @@ class HomeController extends Controller
         }
         $commonData = [
             'activity' => $activity,
-            //'recents' => $recents,
-            //'recentlyUpdatedPages' => $recentlyUpdatedPages,
+            'recents' => $recents,
+            'recentlyUpdatedPages' => $recentlyUpdatedPages,
             'draftPages' => $draftPages,
-            'books' => $books,
-            'pages' => $pages,
-            'chapters' => $chapters,
-            'links' => $links,
         ];
         if ($homepageOption === 'bookshelves') {
             $shelves = $this->entityRepo->getAllPaginated('bookshelf', 18);
@@ -71,7 +62,6 @@ class HomeController extends Controller
             return view('common.home-custom', array_merge($commonData, ['customHomepage' => $customHomepage]));
         }
         return view('common.home', $commonData);
-
     }
 
     /**
