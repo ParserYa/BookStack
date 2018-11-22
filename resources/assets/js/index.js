@@ -1,8 +1,6 @@
 // Global Polyfills
 import "./services/dom-polyfills"
 
-import "./customHome";
-
 // Url retrieval function
 window.baseUrl = function(path) {
     let basePath = document.querySelector('meta[name="base-url"]').getAttribute('content');

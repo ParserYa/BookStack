@@ -5,6 +5,7 @@ use BookStack\Entities\Book;
 use BookStack\Entities\Bookshelf;
 use BookStack\Entities\Chapter;
 use BookStack\Entities\Page;
+use BookStack\Entities\Link;
 use BookStack\Settings\Setting;
 use BookStack\Settings\SettingService;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
             'BookStack\\Book' => Book::class,
             'BookStack\\Chapter' => Chapter::class,
             'BookStack\\Page' => Page::class,
+            'BookStack\\Link' => Link::class,            
         ]);
     }
 

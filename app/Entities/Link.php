@@ -3,9 +3,17 @@
 class Link extends Entity
 {
     protected $fillable = ['name', 'link_to', 'priority', 'book_id'];
-
+    public $searchFactor = 1.3;
     protected $with = ['book'];
-    public $textField = 'text';
+    
+    /**
+     * Get the morph class for this model.
+     * @return string
+     */
+    public function getMorphClass()
+    {
+        return 'BookStack\\Link';
+    }
 
     public function book()
     {

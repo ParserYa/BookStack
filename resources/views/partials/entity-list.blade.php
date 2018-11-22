@@ -10,6 +10,8 @@
                 @include('chapters/list-item', ['chapter' => $entity, 'hidePages' => true])
             @elseif($entity->isA('bookshelf'))
                 @include('shelves/list-item', ['bookshelf' => $entity])
+            @elseif($entity->isA('Link'))
+                @include('links/list-item', ['link' => $entity])
             @endif
 
             @if($index !== count($entities) - 1)

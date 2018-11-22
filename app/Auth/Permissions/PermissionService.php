@@ -90,6 +90,7 @@ class PermissionService
         $this->entityCache = [];
 
         foreach ($entities as $entity) {
+            if (gettype($entity) !== 'object') continue;
             $type = $entity->getType();
             if (!isset($this->entityCache[$type])) {
                 $this->entityCache[$type] = collect();
@@ -656,12 +657,12 @@ class PermissionService
                 });
             }
         });
-        //$linkSelect = $this->d b->table('links')->selectRaw($entities->link->entityRawQuery())->where('book_id', '=', $book_id)->where('chapter_id', '=', 0);
+        $linkSelect = $this->db->table('links')->selectRaw($entities->link->entityRawQuery())->where('book_id', '=', $book_id)->where('chapter_id', '=', 0);
         $chapterSelect = $this->db->table('chapters')->selectRaw($entities->chapter->entityRawQuery())->where('book_id', '=', $book_id);
-        //$query = $this->db->query()->select('*')->from($this->db->raw("({$pageSelect->toSql()} UNION {$chapterSelect->toSql()}  UNION {$linkSelect->toSQL()}) AS U"))
-        //    ->mergeBindings($pageSelect)->mergeBindings($chapterSelect)->mergeBindings($linkSelect);
-        $query = $this->db->query()->select('*')->from($this->db->raw("({$pageSelect->toSql()} UNION {$chapterSelect->toSql()}) AS U"))
-            ->mergeBindings($pageSelect)->mergeBindings($chapterSelect);    
+        $query = $this->db->query()->select('*')->from($this->db->raw("({$pageSelect->toSql()} UNION {$chapterSelect->toSql()}  UNION {$linkSelect->toSQL()}) AS U"))
+            ->mergeBindings($pageSelect)->mergeBindings($chapterSelect)->mergeBindings($linkSelect);
+        // $query = $this->db->query()->select('*')->from($this->db->raw("({$pageSelect->toSql()} UNION {$chapterSelect->toSql()}) AS U"))
+        //    ->mergeBindings($pageSelect)->mergeBindings($chapterSelect);    
         // Add joint permission filter
         $whereQuery = $this->db->table('joint_permissions as jp')->selectRaw('COUNT(*)')
             ->whereRaw('jp.entity_id=U.id')->whereRaw('jp.entity_type=U.entity_type')
